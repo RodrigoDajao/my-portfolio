@@ -1,2 +1,3 @@
-import '../sass/app.scss';
-import 'bootstrap';
+// resources/js/app.js
+
+// Add your JavaScript here.

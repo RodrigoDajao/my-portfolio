@@ -1,6 +1,6 @@
 {{-- resources/views/layouts/app.blade.php --}}
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
 
 <head>
     <meta charset="utf-8">
@@ -15,72 +15,172 @@
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    @vite(['resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body>
+<body class="bg-slate-950 text-slate-100 antialiased">
 
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-        <div class="container">
+    {{-- Navigation --}}
+    <nav class="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-slate-950/80 backdrop-blur-xl">
+        <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
 
-            <a class="navbar-brand fw-bold" href="{{ route('home') }}">
-                RMD
+            {{-- Logo --}}
+            <a href="{{ route('home') }}"
+               class="group flex items-center gap-3">
+
+                <div class="flex h-10 w-10 items-center justify-center rounded-xl
+                            bg-gradient-to-br from-cyan-400 to-blue-600
+                            font-bold text-slate-950 shadow-lg shadow-cyan-500/20
+                            transition duration-300 group-hover:scale-105">
+                    RMD
+                </div>
+
+                <div class="hidden sm:block">
+                    <span class="block text-sm font-semibold text-white">
+                        Rodrigo M. Dajao
+                    </span>
+                    <span class="block text-xs text-slate-400">
+                        Web Developer
+                    </span>
+                </div>
             </a>
 
-            <button class="navbar-toggler"
+            {{-- Desktop Navigation --}}
+            <div class="hidden items-center gap-8 md:flex">
+
+                <a href="{{ route('home') }}"
+                   class="text-sm font-medium text-slate-300 transition hover:text-cyan-400">
+                    Home
+                </a>
+
+                <a href="{{ route('projects.index') }}"
+                   class="text-sm font-medium text-slate-300 transition hover:text-cyan-400">
+                    Projects
+                </a>
+
+                <a href="{{ route('about') }}"
+                   class="text-sm font-medium text-slate-300 transition hover:text-cyan-400">
+                    About
+                </a>
+
+                <a href="{{ route('contact') }}"
+                   class="rounded-full border border-cyan-400/40 px-5 py-2
+                          text-sm font-medium text-cyan-400
+                          transition duration-300
+                          hover:bg-cyan-400 hover:text-slate-950">
+                    Contact
+                </a>
+
+            </div>
+
+            {{-- Mobile Menu Button --}}
+            <button id="mobile-menu-button"
                     type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarNav"
-                    aria-controls="navbarNav"
-                    aria-expanded="false"
+                    class="flex h-10 w-10 items-center justify-center rounded-lg
+                           border border-white/10 text-slate-300
+                           transition hover:border-cyan-400 hover:text-cyan-400
+                           md:hidden"
                     aria-label="Toggle navigation">
 
-                <span class="navbar-toggler-icon"></span>
+                <i class="bi bi-list text-xl"></i>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
+        </div>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('home') }}">
-                            Home
-                        </a>
-                    </li>
+        {{-- Mobile Navigation --}}
+        <div id="mobile-menu"
+             class="hidden border-t border-white/10 bg-slate-950 md:hidden">
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('projects.index') }}">
-                            Projects
-                        </a>
-                    </li>
+            <div class="mx-auto max-w-6xl space-y-1 px-6 py-4">
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('about') }}">
-                            About
-                        </a>
-                    </li>
+                <a href="{{ route('home') }}"
+                   class="block rounded-lg px-4 py-3 text-sm text-slate-300
+                          transition hover:bg-white/5 hover:text-cyan-400">
+                    Home
+                </a>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('contact') }}">
-                            Contact
-                        </a>
-                    </li>
+                <a href="{{ route('projects.index') }}"
+                   class="block rounded-lg px-4 py-3 text-sm text-slate-300
+                          transition hover:bg-white/5 hover:text-cyan-400">
+                    Projects
+                </a>
 
-                </ul>
+                <a href="{{ route('about') }}"
+                   class="block rounded-lg px-4 py-3 text-sm text-slate-300
+                          transition hover:bg-white/5 hover:text-cyan-400">
+                    About
+                </a>
+
+                <a href="{{ route('contact') }}"
+                   class="block rounded-lg px-4 py-3 text-sm text-slate-300
+                          transition hover:bg-white/5 hover:text-cyan-400">
+                    Contact
+                </a>
+
             </div>
         </div>
     </nav>
 
-    <main>
+
+    {{-- Main Content --}}
+    <main class="min-h-screen pt-20">
         @yield('content')
     </main>
 
-    <footer class="bg-dark text-white text-center py-4 mt-5">
-        <div class="container">
-            <p class="mb-0">
-                © {{ date('Y') }} RMD. All Rights Reserved.
+
+    {{-- Footer --}}
+    <footer class="border-t border-white/10 bg-slate-950">
+
+        <div class="mx-auto flex max-w-6xl flex-col items-center
+                    justify-between gap-4 px-6 py-8
+                    sm:flex-row">
+
+            <p class="text-sm text-slate-500">
+                © {{ date('Y') }} Rodrigo M. Dajao. All Rights Reserved.
             </p>
+
+            <div class="flex items-center gap-5">
+
+                <a href="#"
+                   class="text-slate-500 transition hover:text-cyan-400"
+                   aria-label="GitHub">
+                    <i class="bi bi-github text-lg"></i>
+                </a>
+
+                <a href="#"
+                   class="text-slate-500 transition hover:text-cyan-400"
+                   aria-label="LinkedIn">
+                    <i class="bi bi-linkedin text-lg"></i>
+                </a>
+
+                <a href="#"
+                   class="text-slate-500 transition hover:text-cyan-400"
+                   aria-label="Email">
+                    <i class="bi bi-envelope text-lg"></i>
+                </a>
+
+            </div>
+
         </div>
+
     </footer>
+
+
+    {{-- Mobile Menu Script --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const button = document.getElementById('mobile-menu-button');
+            const menu = document.getElementById('mobile-menu');
+
+            if (button && menu) {
+                button.addEventListener('click', () => {
+                    menu.classList.toggle('hidden');
+                });
+            }
+
+        });
+    </script>
 
 </body>
 </html>
